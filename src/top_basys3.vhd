@@ -188,7 +188,7 @@ begin
     w_sign_code <= "1111111" when w_sign = '0' else -- positive
                    "1110111" ;   -- negative
 -- mux to make sign symbol
-    w_7seg <= w_sign_code when w_sel = "11" else
+    w_7seg <= w_sign_code when w_sel = "0111" else
               w_seg;
     
 -- mux to blank
