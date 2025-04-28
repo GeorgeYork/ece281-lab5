@@ -38,8 +38,39 @@ entity controller_fsm is
 end controller_fsm;
 
 architecture FSM of controller_fsm is
+    type state is (clear_display, FirstOperand, SecondOperand, display);
+    signal current_state, next_state: state;
+
 
 begin
 
-
+	-- State register ------------
+	state_register : process(i_adv)
+	begin
+        if rising_edge(i_adv) then
+           if i_reset = '1' then
+               next_state <= clear_display;
+           else
+               case current_state is
+                    when clear_display =>
+                         next_state <= FirstOperand;
+                    when FirstOperand =>
+                         next_state <= SecondOperand;
+                    when SecondOperand =>
+                        next_state <= display;
+                    when display => 
+                        next_state <= clear_display;
+               end case;
+            end if;
+        end if;
+	end process state_register;
+	
+	current_state <= next_state;
+	
+	-- Output logic
+    with current_state select
+    o_cycle <= "0001" when clear_display,
+               "0010" when FirstOperand,
+               "0100" when SecondOperand,
+               "1000" when display;
 end FSM;
