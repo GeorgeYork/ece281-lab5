@@ -179,14 +179,14 @@ begin
 	
 	-- CONCURRENT STATEMENTS ----------------------------
 -- bin MUX
-    w_bin <= "00000000"       when w_cycle = "0001" else  -- clear display
+    w_bin <= "00000000"       when w_cycle = "0001" else  -- clear displaygitg
              s_First_Operand  when w_cycle = "0010" else  -- 1st operand
              s_Second_Operand when w_cycle = "0100" else  -- 2nd operand
              w_result         when w_cycle = "1000";  -- ALU result
 
 -- positive or negative
     w_sign_code <= "1111111" when w_sign = '0' else -- positive
-                   "1110111" ;   -- negative
+                   "0111111" ;   -- negative
 -- mux to make sign symbol
     w_7seg <= w_sign_code when w_sel = "0111" else
               w_seg;
