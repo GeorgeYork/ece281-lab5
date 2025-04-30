@@ -36,6 +36,7 @@
 !*.md
 !*.png
 !*.jpg
+!*.pdf
 
 # don't ignore .github
 !.github/
